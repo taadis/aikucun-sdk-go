@@ -7,5 +7,14 @@ import (
 // 客户端结构体
 type Client struct {
 	httpClient *http.Client
-	url        string
+	options    Options
+}
+
+func NewClient(options ...Option) *Client {
+	opts := NewOptions(options...)
+	client := &Client{
+		httpClient: &http.Client{},
+		options:    opts,
+	}
+	return client
 }

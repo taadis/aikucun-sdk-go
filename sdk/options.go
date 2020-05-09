@@ -6,6 +6,18 @@ type Options struct {
 	AppSecret string
 }
 
+func NewOptions(options ...Option) Options {
+	opts := Options{
+		Url:       "",
+		AppId:     "",
+		AppSecret: "",
+	}
+	for _, o := range options {
+		o(&opts)
+	}
+	return opts
+}
+
 type Option func(*Options)
 
 // WithUrl set default url for the client
