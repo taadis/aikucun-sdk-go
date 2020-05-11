@@ -1,5 +1,11 @@
 package sdk
 
+// IRequest
+type IRequest interface {
+	Method() string
+	Path() string
+}
+
 // BaseRequest
 type BaseRequest struct {
 	AppId      string `json:"appid"`
