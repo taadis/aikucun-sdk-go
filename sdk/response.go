@@ -1,5 +1,9 @@
 package sdk
 
+// IResponse
+type IResponse interface {
+}
+
 // BaseResponse
 type BaseResponse struct {
 	Status  string `json:"status"`
