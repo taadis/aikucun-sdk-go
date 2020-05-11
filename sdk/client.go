@@ -18,3 +18,8 @@ func NewClient(options ...Option) *Client {
 	}
 	return client
 }
+
+// Do
+func (client *Client) Do(request IRequest, response IResponse) (err error) {
+	return
+}
