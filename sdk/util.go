@@ -7,7 +7,7 @@ import (
 )
 
 // GetSign
-func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string) (sign string) {
+func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string) (string, error) {
 	obj := make(map[string]interface{})
 	obj["appid"] = appId
 	obj["appsecret"] = appSecret
@@ -16,6 +16,10 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 	obj["erp"] = erp
 	obj["erpversion"] = erpVersion
 	log.Println(obj)
-	sign, _ = json.Marshal(obj)
-	return sign
+
+	jsonBytes, err := json.Marshal(obj)
+	if err != nil {
+		return "", err
+	}
+	return string(jsonBytes), nil
 }
