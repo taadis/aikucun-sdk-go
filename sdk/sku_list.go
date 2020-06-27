@@ -10,3 +10,10 @@ type SkuListRequest struct {
 // SkuListResponse
 type SkuListResponse struct {
 }
+
+// SkuList
+func (client *Client) SkuList(request *SkuListRequest) (response *SkuListResponse, err error) {
+	response = &SkuListResponse{}
+	// err = client.Do(request, response)
+	return
+}
