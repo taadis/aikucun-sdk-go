@@ -4,6 +4,7 @@ type Options struct {
 	Url       string
 	AppId     string
 	AppSecret string
+	Erp       string
 }
 
 func NewOptions(options ...Option) Options {
@@ -11,6 +12,7 @@ func NewOptions(options ...Option) Options {
 		Url:       "",
 		AppId:     "",
 		AppSecret: "",
+		Erp:       "",
 	}
 	for _, o := range options {
 		o(&opts)
@@ -38,5 +40,12 @@ func WithAppId(appId string) Option {
 func WithAppSecret(appSecret string) Option {
 	return func(options *Options) {
 		options.AppSecret = appSecret
+	}
+}
+
+// WithErp set default erp for the client
+func WithErp(erp string) Option {
+	return func(options *Options) {
+		options.Erp = erp
 	}
 }
