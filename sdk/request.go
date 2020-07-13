@@ -4,6 +4,7 @@ package sdk
 type IRequest interface {
 	Method() string
 	Path() string
+	Params() map[string]string
 }
 
 // BaseRequest
