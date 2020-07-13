@@ -10,14 +10,14 @@ import (
 
 // GetSign
 func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string, queryParams map[string]string, postJson string) (string, error) {
-	obj := make(map[string]interface{})
+	obj := make(map[string]string)
 	obj["appid"] = appId
 	obj["appsecret"] = appSecret
 	obj["noncestr"] = nonceStr
 	obj["timestamp"] = timestamp
 	obj["erp"] = erp
 	obj["erpversion"] = erpVersion
-	log.Println(obj)
+	log.Println("obj:", obj)
 
 	// add queryParams
 	if queryParams != nil {
