@@ -1,18 +1,20 @@
 package sdk
 
 type Options struct {
-	Url       string
-	AppId     string
-	AppSecret string
-	Erp       string
+	Url        string
+	AppId      string
+	AppSecret  string
+	Erp        string
+	ErpVersion string
 }
 
 func NewOptions(options ...Option) Options {
 	opts := Options{
-		Url:       "",
-		AppId:     "",
-		AppSecret: "",
-		Erp:       "",
+		Url:        "",
+		AppId:      "",
+		AppSecret:  "",
+		Erp:        "",
+		ErpVersion: "",
 	}
 	for _, o := range options {
 		o(&opts)
@@ -47,5 +49,12 @@ func WithAppSecret(appSecret string) Option {
 func WithErp(erp string) Option {
 	return func(options *Options) {
 		options.Erp = erp
+	}
+}
+
+// WithErpVersion set default erpVersion for the client
+func WithErpVersion(erpVersion string) Option {
+	return func(options *Options) {
+		options.ErpVersion = erpVersion
 	}
 }
