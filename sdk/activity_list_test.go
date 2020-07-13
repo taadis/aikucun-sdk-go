@@ -8,12 +8,23 @@ import (
 
 func TestActivityList(t *testing.T) {
 	c := conf.GetConf()
-	client := NewClient(WithUrl(c.TestUrl), WithAppId(""), WithAppSecret(""))
-	res, err := client.ActivityList(nil)
-	t.Log("err:", err.Error())
-	if err != nil {
-		t.Log(err.Error())
-		t.FailNow()
+	client := NewClient(
+		WithUrl(c.TestUrl),
+		WithAppId(""),
+		WithAppSecret(""),
+		WithErp(""),
+		WithErpVersion(""),
+	)
+	req := &ActivityListRequest{
+		Status: 1,
 	}
-	t.Log(res)
+	t.Log("req:", req)
+	resp, err := client.ActivityList(req)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	// body: {"code":10003,"data":{},"message":"参数错误","status":"error"}
+	if resp.Code != 0 {
+		t.Fatal(resp)
+	}
 }

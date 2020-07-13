@@ -1,16 +1,27 @@
 package sdk
 
+import (
+	"net/http"
+	"strconv"
+)
+
 type ActivityListRequest struct {
-	BaseRequest
+	//BaseRequest
 	Status int `json:"status,omitempty"`
 }
 
 func (request *ActivityListRequest) Method() string {
-	return "get"
+	return http.MethodGet
 }
 
 func (request *ActivityListRequest) Path() string {
 	return "/api/v2/activity/list"
+}
+
+func (request *ActivityListRequest) Params() map[string]string {
+	m := make(map[string]string)
+	m["status"] = strconv.Itoa(request.Status)
+	return m
 }
 
 type ActivityListResponse struct {
