@@ -14,3 +14,12 @@ func TestGetSign(t *testing.T) {
 	}
 	t.Log("sign=", sign)
 }
+
+// TestSha1Sum
+func TestSha1Sum(t *testing.T) {
+	s := "123456"
+	ret := Sha1Sum(s)
+	if ret != "7c4a8d09ca3762af61e59520943dc26494f8941b" {
+		t.Fatal("sha1 sum fail")
+	}
+}

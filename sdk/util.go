@@ -2,6 +2,7 @@ package sdk
 
 import (
 	"crypto/sha1"
+	"encoding/hex"
 	"fmt"
 	"log"
 	"sort"
@@ -53,4 +54,11 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 	// sha1
 	ret := fmt.Sprintf("%x", sha1.New().Sum([]byte(str)))
 	return ret, nil
+}
+
+// Sha1Sum
+func Sha1Sum(s string) string {
+	h := sha1.New()
+	h.Write([]byte(s))
+	return hex.EncodeToString(h.Sum(nil))
 }
