@@ -52,7 +52,7 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 	log.Println("加密前的字符串:", str)
 
 	// sha1
-	ret := fmt.Sprintf("%x", sha1.New().Sum([]byte(str)))
+	ret := Sha1Sum(str)
 	return ret, nil
 }
 
