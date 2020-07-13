@@ -8,12 +8,12 @@ import (
 )
 
 // GetSign
-func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string, queryParams map[string]interface{}, postJson string) (string, error) {
+func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string, queryParams map[string]string, postJson string) (string, error) {
 	obj := make(map[string]interface{})
 	obj["appid"] = appId
 	obj["appsecret"] = appSecret
 	obj["noncestr"] = nonceStr
-	obj["timestamp"] = timestamp //time.Now().Unix()
+	obj["timestamp"] = timestamp
 	obj["erp"] = erp
 	obj["erpversion"] = erpVersion
 	log.Println(obj)
@@ -43,9 +43,9 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 	str := ""
 	for _, key := range keys {
 		if str != "" {
-			str += fmt.Sprint("&", key, "=", obj[key].(string))
+			str += fmt.Sprint("&", key, "=", obj[key])
 		} else {
-			str += fmt.Sprint(key, "=", obj[key].(string))
+			str += fmt.Sprint(key, "=", obj[key])
 		}
 	}
 	log.Println("加密前的字符串:", str)
