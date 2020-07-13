@@ -2,11 +2,13 @@ package sdk
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"log"
 	"net/http"
-
-	"github.com/google/go-querystring/query"
+	"net/url"
+	//"strconv"
+	//"time"
 )
 
 // 客户端结构体
@@ -26,42 +28,79 @@ func NewClient(options ...Option) *Client {
 
 // Do
 func (client *Client) Do(request IRequest, response IResponse) (err error) {
-	url := client.options.Url + request.Path()
-	log.Println("url:", url)
-	method := request.Method()
-	req, err := http.NewRequest(method, url, nil)
-	if err != nil {
-		log.Println(err)
-		return err
-	}
-	log.Print("req:", req)
 
-	// 如何拼接动态结构体的键值
-	v, _ := query.Values(request)
-	log.Print("v:", v)
-	req.URL.RawQuery = v.Encode()
-	log.Println("url string:", req.URL.String())
-	log.Println("rawQueury:", req.URL.RawQuery)
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	log.Print("do 1:")
-	res, err := client.httpClient.Do(req)
-	log.Print("do 2:", err)
+	//
+	m := make(map[string]string)
+	m["appid"] = client.options.AppId
+	//m["appsecret"] = client.options.AppSecret
+	m["noncestr"] = strconv.FormatInt(time.Now().Unix(), 10)
+	m["timestamp"] = strconv.FormatInt(time.Now().Unix(), 10)
+	m["erp"] = client.options.Erp
+	m["erpversion"] = client.options.ErpVersion
+	//m["sign"] = ""
+
+	// get sign
+	queryParams := request.Params()
+	postJson, err := json.Marshal(request)
+	if request.Method() == http.MethodGet {
+		sign, err := GetSign(m["appid"], client.options.AppSecret, m["noncestr"], m["erp"], m["erpversion"], m["timestamp"], queryParams, "")
+		if err != nil {
+			log.Println("GetSign error:", err.Error())
+			return err
+		}
+		log.Println("sign=", sign)
+		m["sign"] = sign
+	} else if request.Method() == http.MethodPost {
+		m["sign"], err = GetSign(m["appid"], client.options.AppSecret, m["noncestr"], m["erp"], m["erpversion"], m["timestamp"], queryParams, string(postJson))
+		if err != nil {
+			log.Println("GetSign error:", err.Error())
+			return err
+		}
+	} else {
+		return errors.New("method not allowed")
+	}
+
+	//
+	u, err := url.Parse(client.options.Url + request.Path())
 	if err != nil {
-		log.Println("do error:", err)
+		log.Println("url.Parse error:", err.Error())
 		return err
 	}
-	defer res.Body.Close()
-	body, err := ioutil.ReadAll(res.Body)
+	ps := url.Values{}
+	for k, v := range m {
+		//u.Query().Set(k, v)
+		ps.Set(k, v)
+	}
+	u.RawQuery = ps.Encode()
+	log.Println("url:", u.String())
+
+	//
+	var resp *http.Response
+	method := request.Method()
+	if method == http.MethodGet {
+		req, err := http.NewRequest(method, u.String(), nil)
+		if err != nil {
+			log.Println(err)
+			return err
+		}
+		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+		log.Print("req:", req)
+		resp, err = http.DefaultClient.Do(req)
+	} else if method == http.MethodPost {
+		//resp, err = http.DefaultClient.Post()
+	}
+	defer resp.Body.Close()
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		log.Println("ioutil.ReadAll(res.Body) error:", err)
 		return err
 	}
 	log.Println("body:", string(body))
+
 	if err = json.Unmarshal(
 		body,     // data []byte,
 		response, // v interface{}
 	); err != nil {
-		log.Println("json.Unmarshal() error:", err)
+		log.Println("json.Unmarshal() error:", err.Error())
 		return err
 	}
 	return
