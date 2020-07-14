@@ -7,13 +7,21 @@ import (
 )
 
 func TestActivityList(t *testing.T) {
+	parseArgs(t)
+
 	c := conf.GetConf()
+	url := ""
+	if *isPro {
+		url = c.ProUrl
+	} else {
+		url = c.TestUrl
+	}
 	client := NewClient(
-		WithUrl(c.TestUrl),
-		WithAppId(""),
-		WithAppSecret(""),
-		WithErp(""),
-		WithErpVersion(""),
+		WithUrl(url),
+		WithAppId(*appId),
+		WithAppSecret(*appSecret),
+		WithErp(*erp),
+		WithErpVersion(*erpVersion),
 	)
 	req := &ActivityListRequest{
 		Status: 1,
