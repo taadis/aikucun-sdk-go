@@ -3,3 +3,5 @@
 *.exe
 
 go.sum
+
+**.bat
