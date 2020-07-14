@@ -6,6 +6,7 @@ import (
 )
 
 var (
+	isPro      = flag.Bool("isPro", false, "isPro")
 	appId      = flag.String("appId", "", "appId")
 	appSecret  = flag.String("appSecret", "", "appSecret")
 	erp        = flag.String("erp", "", "erp")
@@ -17,5 +18,5 @@ func parseArgs(t *testing.T) {
 	if !flag.Parsed() {
 		flag.Parse()
 	}
-	t.Logf("-args -appId %s -appSecret %s", *appId, *appSecret)
+	t.Logf("-args -isPro %t -appId %s -appSecret %s", *isPro, *appId, *appSecret)
 }
