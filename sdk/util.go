@@ -44,15 +44,15 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 	str := ""
 	for _, key := range keys {
 		if str != "" {
-			str += fmt.Sprint("&", key, "=", obj[key])
-		} else {
-			str += fmt.Sprint(key, "=", obj[key])
+			str += "&"
 		}
+		str += fmt.Sprint(key, "=", obj[key])
 	}
 	log.Println("加密前的字符串:", str)
 
 	// sha1
 	ret := Sha1Sum(str)
+	log.Println("加密后的sign:", ret)
 	return ret, nil
 }
 
