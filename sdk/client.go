@@ -43,6 +43,9 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 	queryParams := request.Params()
 	postJson, err := json.Marshal(request)
 	if request.Method() == http.MethodGet {
+		for k, v := range queryParams {
+			m[k] = v
+		}
 		sign, err := GetSign(m["appid"], client.options.AppSecret, m["noncestr"], m["erp"], m["erpversion"], m["timestamp"], queryParams, "")
 		if err != nil {
 			log.Println("GetSign error:", err.Error())
@@ -68,7 +71,6 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 	}
 	ps := url.Values{}
 	for k, v := range m {
-		//u.Query().Set(k, v)
 		ps.Set(k, v)
 	}
 	u.RawQuery = ps.Encode()
