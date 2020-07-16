@@ -9,12 +9,11 @@ import (
 func TestActivityList(t *testing.T) {
 	parseArgs(t)
 
-	c := conf.GetConf()
 	url := ""
 	if *isPro {
-		url = c.ProUrl
+		url = conf.UrlPro
 	} else {
-		url = c.TestUrl
+		url = conf.UrlTest
 	}
 	client := NewClient(
 		WithUrl(url),
