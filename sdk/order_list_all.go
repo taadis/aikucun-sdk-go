@@ -1,5 +1,9 @@
 package sdk
 
+import (
+	"net/http"
+)
+
 // OrderListAllRequest
 type OrderListAllRequest struct {
 	ActivityId  string `json:"activityid"`
@@ -10,6 +14,26 @@ type OrderListAllRequest struct {
 
 // OrderListAllResponse
 type OrderListAllResponse struct {
+}
+
+// Method
+func (req *OrderListAllRequest) Method() string {
+	return http.MethodGet
+}
+
+// Path
+func (req *OrderListAllRequest) Path() string {
+	return "/api/v2/order/listall?version=2"
+}
+
+// Params
+func (req *OrderListAllRequest) Params() map[string]interface{} {
+	m := make(map[string]interface{})
+	m["activityid"] = req.ActivityId
+	m["page"] = req.Page
+	m["pagesize"] = req.PageSize
+	m["withwaybill"] = req.WithWaybill
+	return m
 }
 
 // OrderListAll
