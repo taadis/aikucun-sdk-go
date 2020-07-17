@@ -14,6 +14,7 @@ type OrderListAllRequest struct {
 
 // OrderListAllResponse
 type OrderListAllResponse struct {
+	BaseResponse
 }
 
 // Method
@@ -23,12 +24,13 @@ func (req *OrderListAllRequest) Method() string {
 
 // Path
 func (req *OrderListAllRequest) Path() string {
-	return "/api/v2/order/listall?version=2"
+	return "/api/v2/order/listall"
 }
 
 // Params
 func (req *OrderListAllRequest) Params() map[string]interface{} {
 	m := make(map[string]interface{})
+	m["version"] = 2
 	m["activityid"] = req.ActivityId
 	m["page"] = req.Page
 	m["pagesize"] = req.PageSize
@@ -39,6 +41,6 @@ func (req *OrderListAllRequest) Params() map[string]interface{} {
 // OrderListAll
 func (client *Client) OrderListAll(request *OrderListAllRequest) (response *OrderListAllResponse, err error) {
 	response = &OrderListAllResponse{}
-	// TODO: err = client.Do(request, response)
+	err = client.Do(request, response)
 	return
 }
