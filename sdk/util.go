@@ -9,8 +9,8 @@ import (
 )
 
 // GetSign
-func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string, queryParams map[string]string, postJson string) (string, error) {
-	obj := make(map[string]string)
+func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVersion string, timestamp string, queryParams map[string]interface{}, postJson string) (string, error) {
+	obj := make(map[string]interface{})
 	obj["appid"] = appId
 	obj["appsecret"] = appSecret
 	obj["noncestr"] = nonceStr

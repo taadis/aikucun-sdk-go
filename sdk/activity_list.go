@@ -18,8 +18,8 @@ func (request *ActivityListRequest) Path() string {
 	return "/api/v2/activity/list"
 }
 
-func (request *ActivityListRequest) Params() map[string]string {
-	m := make(map[string]string)
+func (request *ActivityListRequest) Params() map[string]interface{} {
+	m := make(map[string]interface{})
 	m["status"] = strconv.Itoa(request.Status)
 	return m
 }

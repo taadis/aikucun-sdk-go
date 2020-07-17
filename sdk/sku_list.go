@@ -2,7 +2,6 @@ package sdk
 
 import (
 	"net/http"
-	"strconv"
 )
 
 // SkuListRequest
@@ -44,11 +43,11 @@ func (req *SkuListRequest) Path() string {
 }
 
 // Params
-func (req *SkuListRequest) Params() map[string]string {
-	m := make(map[string]string)
+func (req *SkuListRequest) Params() map[string]interface{} {
+	m := make(map[string]interface{})
 	m["activityid"] = req.ActivityId
-	m["page"] = strconv.Itoa(req.Page)
-	m["pagesize"] = strconv.Itoa(req.PageSize)
+	m["page"] = req.Page
+	m["pagesize"] = req.PageSize
 	return m
 }
 

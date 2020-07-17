@@ -30,7 +30,7 @@ func NewClient(options ...Option) *Client {
 func (client *Client) Do(request IRequest, response IResponse) (err error) {
 
 	//
-	m := make(map[string]string)
+	m := make(map[string]interface{})
 	m["appid"] = client.options.AppId
 	//m["appsecret"] = client.options.AppSecret
 	m["noncestr"] = strconv.FormatInt(time.Now().Unix(), 10)
@@ -46,7 +46,15 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 		for k, v := range queryParams {
 			m[k] = v
 		}
-		sign, err := GetSign(m["appid"], client.options.AppSecret, m["noncestr"], m["erp"], m["erpversion"], m["timestamp"], queryParams, "")
+		sign, err := GetSign(
+			m["appid"].(string),
+			client.options.AppSecret,
+			m["noncestr"].(string),
+			m["erp"].(string),
+			m["erpversion"].(string),
+			m["timestamp"].(string),
+			queryParams,
+			"")
 		if err != nil {
 			log.Println("GetSign error:", err.Error())
 			return err
@@ -54,7 +62,15 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 		log.Println("sign=", sign)
 		m["sign"] = sign
 	} else if request.Method() == http.MethodPost {
-		m["sign"], err = GetSign(m["appid"], client.options.AppSecret, m["noncestr"], m["erp"], m["erpversion"], m["timestamp"], queryParams, string(postJson))
+		m["sign"], err = GetSign(
+			m["appid"].(string),
+			client.options.AppSecret,
+			m["noncestr"].(string),
+			m["erp"].(string),
+			m["erpversion"].(string),
+			m["timestamp"].(string),
+			queryParams,
+			string(postJson))
 		if err != nil {
 			log.Println("GetSign error:", err.Error())
 			return err
@@ -71,7 +87,12 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 	}
 	ps := url.Values{}
 	for k, v := range m {
-		ps.Set(k, v)
+		switch v.(type) {
+		case string:
+			ps.Set(k, v.(string))
+		case int:
+			ps.Set(k, strconv.Itoa(v.(int)))
+		}
 	}
 	u.RawQuery = ps.Encode()
 	log.Println("url:", u.String())
