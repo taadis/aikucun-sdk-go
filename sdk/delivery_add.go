@@ -27,15 +27,8 @@ func (req *DeliveryAddRequest) Path() string {
 
 // Params
 func (req *DeliveryAddRequest) Params() map[string]interface{} {
-	/*
-		bs, err := json.Marshal(req)
-		if err != nil {
-			panic(err)
-		}
-	*/
 	m := make(map[string]interface{})
-	//m["verison"] = 2
-	//m["adorderid"] = string(bs[:])
+	m["version"] = 2
 	return m
 }
 
