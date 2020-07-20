@@ -42,12 +42,14 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 
 	// get sign
 	queryParams := request.Params()
+	log.Println("queryParams:", queryParams)
 	postJson, err := json.Marshal(request)
-	log.Println("postJoson:", string(postJson))
+	log.Println("postJson:", string(postJson))
+	for k, v := range queryParams {
+		m[k] = v
+	}
+	log.Println("m:", m)
 	if request.Method() == http.MethodGet {
-		for k, v := range queryParams {
-			m[k] = v
-		}
 		sign, err := GetSign(
 			m["appid"].(string),
 			client.options.AppSecret,
@@ -117,6 +119,7 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 			log.Println(err.Error())
 			return err
 		}
+		req.Header.Set("Content-Type", "application/json;charset=utf8")
 		resp, err = http.DefaultClient.Do(req)
 	} else {
 		return errors.New("method not allowed")
