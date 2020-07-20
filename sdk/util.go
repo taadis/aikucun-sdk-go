@@ -31,7 +31,7 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 	// add postJson
 	if postJson != "" {
 		log.Println("postJson 不为空, 准备添加 POST 查询参数")
-		obj["post"] = postJson
+		obj["body"] = postJson
 		log.Println("添加 POST 查询参数后的对象为:", obj)
 	}
 

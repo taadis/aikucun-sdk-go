@@ -15,6 +15,27 @@ func TestGetSign(t *testing.T) {
 	t.Log("sign=", sign)
 }
 
+// TestGetSign2
+func TestGetSign2(t *testing.T) {
+	appId := "appId"
+	appSecret := "appSecret"
+	nonceStr := "nonceStr"
+	erp := "erp"
+	erpVersion := "erpVersion"
+	timestamp := "timestamp"
+	queryParams := make(map[string]interface{})
+	queryParams["version"] = 2
+	postJson := `{"adorderid":"xxx"}`
+	sign, err := GetSign(appId, appSecret, nonceStr, erp, erpVersion, timestamp, queryParams, postJson)
+	if err != nil {
+		t.Fatal(err.Error())
+	}
+	t.Log("sign=", sign)
+	if sign != "4591972b290f888fffb072adf42fa08342db03b2" {
+		t.Fatal("post sign fail")
+	}
+}
+
 // TestSha1Sum
 func TestSha1Sum(t *testing.T) {
 	s := "123456"
