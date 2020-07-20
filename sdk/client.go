@@ -1,6 +1,7 @@
 package sdk
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"io/ioutil"
@@ -42,6 +43,7 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 	// get sign
 	queryParams := request.Params()
 	postJson, err := json.Marshal(request)
+	log.Println("postJoson:", string(postJson))
 	if request.Method() == http.MethodGet {
 		for k, v := range queryParams {
 			m[k] = v
@@ -110,7 +112,14 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 		log.Print("req:", req)
 		resp, err = http.DefaultClient.Do(req)
 	} else if method == http.MethodPost {
-		//resp, err = http.DefaultClient.Post()
+		req, err := http.NewRequest(method, u.String(), bytes.NewBuffer(postJson))
+		if err != nil {
+			log.Println(err.Error())
+			return err
+		}
+		resp, err = http.DefaultClient.Do(req)
+	} else {
+		return errors.New("method not allowed")
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
