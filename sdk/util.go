@@ -3,9 +3,10 @@ package sdk
 import (
 	"crypto/sha1"
 	"encoding/hex"
-	"fmt"
 	"log"
 	"sort"
+	"strconv"
+	"strings"
 )
 
 // GetSign
@@ -41,17 +42,25 @@ func GetSign(appId string, appSecret string, nonceStr string, erp string, erpVer
 		keys = append(keys, key)
 	}
 	sort.Strings(keys)
-	str := ""
-	for _, key := range keys {
-		if str != "" {
-			str += "&"
+
+	var sb strings.Builder
+	for index, key := range keys {
+		if index != 0 {
+			sb.WriteString("&")
 		}
-		str += fmt.Sprint(key, "=", obj[key])
+		sb.WriteString(key)
+		sb.WriteString("=")
+		switch obj[key].(type) {
+		case string:
+			sb.WriteString(obj[key].(string))
+		case int:
+			sb.WriteString(strconv.Itoa(obj[key].(int)))
+		}
 	}
-	log.Println("加密前的字符串:", str)
+	log.Println("加密前的字符串:", sb.String())
 
 	// sha1
-	ret := Sha1Sum(str)
+	ret := Sha1Sum(sb.String())
 	log.Println("加密后的sign:", ret)
 	return ret, nil
 }
