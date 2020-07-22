@@ -2,8 +2,6 @@ package sdk
 
 import (
 	"testing"
-
-	"gitee.com/taadis/aikucun-sdk-go/conf"
 )
 
 func TestActivityList(t *testing.T) {
@@ -11,9 +9,9 @@ func TestActivityList(t *testing.T) {
 
 	url := ""
 	if *isPro {
-		url = conf.UrlPro
+		url = UrlPro
 	} else {
-		url = conf.UrlTest
+		url = UrlTest
 	}
 	client := NewClient(
 		WithUrl(url),

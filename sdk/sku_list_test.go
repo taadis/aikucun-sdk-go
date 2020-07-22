@@ -2,14 +2,12 @@ package sdk
 
 import (
 	"testing"
-
-	"gitee.com/taadis/aikucun-sdk-go/conf"
 )
 
 func TestSkuList(t *testing.T) {
 	parseArgs(t)
 	client := NewClient(
-		WithUrl(conf.UrlTest),
+		WithUrl(UrlTest),
 		WithAppId(*appId),
 		WithAppSecret(*appSecret),
 		WithErp(*erp),

@@ -1,4 +1,4 @@
-package conf
+package sdk
 
 const (
 	UrlTest = "https://openapi.akucun.com"
