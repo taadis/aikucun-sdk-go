@@ -43,6 +43,11 @@ type ActivityListResponse struct {
 	}
 }
 
+// NewActivityListRequest
+func NewActivityListRequest() *ActivityListRequest {
+	return new(ActivityListRequest)
+}
+
 // ActivityList
 func (client *Client) ActivityList(request *ActivityListRequest) (response *ActivityListResponse, err error) {
 	response = &ActivityListResponse{}

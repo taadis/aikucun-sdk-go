@@ -20,9 +20,8 @@ func TestActivityList(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &ActivityListRequest{
-		Status: 1,
-	}
+	req := NewActivityListRequest()
+	req.Status = 1
 	t.Log("req:", req)
 	resp, err := client.ActivityList(req)
 	if err != nil {
