@@ -14,12 +14,12 @@ func TestOrderListAll(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &OrderListAllRequest{
-		ActivityId:  "",
-		Page:        1,
-		PageSize:    2,
-		WithWaybill: 1,
-	}
+	req := NewOrderListAllRequest()
+	req.ActivityId = ""
+	req.Page = 1
+	req.PageSize = 2
+	req.WithWaybill = 1
+
 	resp, err := client.OrderListAll(req)
 	if err != nil {
 		t.Fatal(err.Error())

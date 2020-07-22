@@ -38,6 +38,11 @@ func (req *OrderListAllRequest) Params() map[string]interface{} {
 	return m
 }
 
+// NewOrderListAllRequest
+func NewOrderListAllRequest() *OrderListAllRequest {
+	return new(OrderListAllRequest)
+}
+
 // OrderListAll
 func (client *Client) OrderListAll(request *OrderListAllRequest) (response *OrderListAllResponse, err error) {
 	response = &OrderListAllResponse{}
