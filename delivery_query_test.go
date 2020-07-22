@@ -14,9 +14,8 @@ func TestDeliveryQuery(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &DeliveryQueryRequest{
-		AdorderId: "",
-	}
+	req := NewDeliveryQueryRequest()
+	req.AdorderId = ""
 	resp, err := client.DeliveryQuery(req)
 	if err != nil {
 		t.Fatal(".DeliveryQuery error:", err.Error())

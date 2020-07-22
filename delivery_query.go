@@ -63,6 +63,11 @@ func (req *DeliveryQueryRequest) Params() map[string]interface{} {
 	return m
 }
 
+// NewDeliveryQueryRequest
+func NewDeliveryQueryRequest() *DeliveryQueryRequest {
+	return new(DeliveryQueryRequest)
+}
+
 // DeliveryQuery
 func (client *Client) DeliveryQuery(request *DeliveryQueryRequest) (response *DeliveryQueryResponse, err error) {
 	response = &DeliveryQueryResponse{}
