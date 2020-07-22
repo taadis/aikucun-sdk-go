@@ -60,6 +60,11 @@ func (req *OrderListNoRequest) Params() map[string]interface{} {
 	return m
 }
 
+// NewOrderListNoRequest
+func NewOrderListNoRequest() *OrderListNoRequest {
+	return new(OrderListNoRequest)
+}
+
 // OrderListNo
 func (client *Client) OrderListNo(request *OrderListNoRequest) (response *OrderListNoResponse, err error) {
 	response = &OrderListNoResponse{}
