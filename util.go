@@ -1,4 +1,4 @@
-package sdk
+package aikucun
 
 import (
 	"crypto/sha1"

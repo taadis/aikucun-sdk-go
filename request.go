@@ -1,4 +1,4 @@
-package sdk
+package aikucun
 
 // IRequest
 type IRequest interface {
