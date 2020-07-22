@@ -54,6 +54,11 @@ func (req *InvoiceUploadRequest) Params() map[string]interface{} {
 	return m
 }
 
+// NewInvoiceUploadRequest
+func NewInvoiceUploadRequest() *InvoiceUploadRequest {
+	return &InvoiceUploadRequest{}
+}
+
 // InvoiceUpload
 func (client *Client) InvoiceUpload(request *InvoiceUploadRequest) (response *InvoiceUploadResponse, err error) {
 	response = &InvoiceUploadResponse{}

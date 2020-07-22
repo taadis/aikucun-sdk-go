@@ -14,7 +14,7 @@ func TestInvoiceUpload(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &InvoiceUploadRequest{}
+	req := NewInvoiceUploadRequest()
 	resp, err := client.InvoiceUpload(req)
 	if err != nil {
 		t.Fatal(".InvoiceUpload error:", err.Error())
