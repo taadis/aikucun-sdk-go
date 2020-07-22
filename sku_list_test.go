@@ -13,11 +13,10 @@ func TestSkuList(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &SkuListRequest{
-		ActivityId: "",
-		Page:       1,
-		PageSize:   2,
-	}
+	req := NewSkuListRequest()
+	req.ActivityId = ""
+	req.Page = 1
+	req.PageSize = 2
 	resp, err := client.SkuList(req)
 	if err != nil {
 		t.Fatal(".SkuList() error:", err.Error())

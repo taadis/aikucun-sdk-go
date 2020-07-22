@@ -51,6 +51,11 @@ func (req *SkuListRequest) Params() map[string]interface{} {
 	return m
 }
 
+// NewSkuListRequest
+func NewSkuListRequest() *SkuListRequest {
+	return new(SkuListRequest)
+}
+
 // SkuList
 func (client *Client) SkuList(request *SkuListRequest) (response *SkuListResponse, err error) {
 	response = &SkuListResponse{}
