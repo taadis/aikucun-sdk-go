@@ -14,10 +14,9 @@ func TestOrderDetail(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &OrderDetailRequest{
-		AdorderId:   "",
-		WithWaybill: 1,
-	}
+	req := NewOrderDetailRequest()
+	req.AdorderId = ""
+	req.WithWaybill = 1
 	resp, err := client.OrderDetail(req)
 	if err != nil {
 		t.Fatal(".OrderDetail error:", err.Error())

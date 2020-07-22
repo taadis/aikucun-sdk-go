@@ -93,6 +93,11 @@ type OrderDetailProduct struct {
 	RealSettlementPrice string `json:"realsettlementprice"`
 }
 
+// NewOrderDetailRequest
+func NewOrderDetailRequest() *OrderDetailRequest {
+	return new(OrderDetailRequest)
+}
+
 // OrderDetail
 func (client *Client) OrderDetail(request *OrderDetailRequest) (response *OrderDetailResponse, err error) {
 	response = &OrderDetailResponse{}
