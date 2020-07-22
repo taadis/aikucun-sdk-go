@@ -14,9 +14,8 @@ func TestDeliveryAdd(t *testing.T) {
 		WithErp(*erp),
 		WithErpVersion(*erpVersion),
 	)
-	req := &DeliveryAddRequest{
-		AdorderId: "xxx",
-	}
+	req := NewDeliveryAddRequest()
+	req.AdorderId = "xxx"
 	resp, err := client.DeliveryAdd(req)
 	if err != nil {
 		t.Fatal(".DeliveryAdd error:", err.Error())

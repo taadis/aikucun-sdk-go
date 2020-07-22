@@ -63,6 +63,11 @@ func (req *DeliveryAddRequest) Params() map[string]interface{} {
 	return m
 }
 
+// NewDeliveryAddRequest
+func NewDeliveryAddRequest() *DeliveryAddRequest {
+	return new(DeliveryAddRequest)
+}
+
 // DelievryAdd
 func (client *Client) DeliveryAdd(request *DeliveryAddRequest) (response *DeliveryAddResponse, err error) {
 	response = &DeliveryAddResponse{}
