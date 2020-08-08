@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -125,17 +124,9 @@ func (client *Client) Do(request IRequest, response IResponse) (err error) {
 		return errors.New("method not allowed")
 	}
 	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
+	err = json.NewDecoder(resp.Body).Decode(response)
 	if err != nil {
-		return err
-	}
-	log.Println("body:", string(body))
-
-	if err = json.Unmarshal(
-		body,     // data []byte,
-		response, // v interface{}
-	); err != nil {
-		log.Println("json.Unmarshal() error:", err.Error())
+		log.Println("Error json.Decode:", err.Error())
 		return err
 	}
 	return
