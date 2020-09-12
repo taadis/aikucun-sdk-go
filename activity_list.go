@@ -1,6 +1,7 @@
 package aikucun
 
 import (
+	"encoding/json"
 	"net/http"
 	"strconv"
 )
@@ -39,13 +40,19 @@ type ActivityListResponse struct {
 			BeginTime     string `json:"begintime"`
 			EndTime       string `json:"endtime"`
 			AfterSaleTime string `json:"aftersaletime"`
-		}
-	}
+		} `json:"list"`
+	} `json:"data"`
 }
 
 // NewActivityListRequest
 func NewActivityListRequest() *ActivityListRequest {
 	return new(ActivityListRequest)
+}
+
+//
+func (resp *ActivityListResponse) String() string {
+	buf, _ := json.Marshal(resp)
+	return string(buf)
 }
 
 // ActivityList

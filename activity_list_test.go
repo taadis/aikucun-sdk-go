@@ -4,6 +4,15 @@ import (
 	"testing"
 )
 
+func TestActivityListResponseString(t *testing.T) {
+	resp := &ActivityListResponse{}
+	s := resp.String()
+	t.Log(s)
+	if s == "" {
+		t.Fatal(s)
+	}
+}
+
 func TestActivityList(t *testing.T) {
 	parseArgs(t)
 
