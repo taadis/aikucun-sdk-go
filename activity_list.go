@@ -1,6 +1,7 @@
 package aikucun
 
 import (
+	"bytes"
 	"encoding/json"
 	"net/http"
 	"strconv"
@@ -51,8 +52,15 @@ func NewActivityListRequest() *ActivityListRequest {
 
 //
 func (resp *ActivityListResponse) String() string {
-	buf, _ := json.Marshal(resp)
-	return string(buf)
+	//buf, _ := json.Marshal(resp)
+	//return string(buf)
+	//buf := bytes.NewBuffer([]byte(""))
+	buf := &bytes.Buffer{}
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // ActivityList
