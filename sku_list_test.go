@@ -4,6 +4,12 @@ import (
 	"testing"
 )
 
+func TestSkuListResponseString(t *testing.T) {
+	resp := &SkuListResponse{}
+	s := resp.String()
+	t.Log(s)
+}
+
 func TestSkuList(t *testing.T) {
 	parseArgs(t)
 	client := NewClient(

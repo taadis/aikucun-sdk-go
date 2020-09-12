@@ -1,6 +1,8 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
@@ -28,8 +30,8 @@ type SkuListResponse struct {
 			Name      string `json:"name"`
 			Size      string `json:"size"`
 			Color     string `json:"color"`
-		}
-	}
+		} `json:"list"`
+	} `json:"data"`
 }
 
 // Method
@@ -54,6 +56,16 @@ func (req *SkuListRequest) Params() map[string]interface{} {
 // NewSkuListRequest
 func NewSkuListRequest() *SkuListRequest {
 	return new(SkuListRequest)
+}
+
+// String
+func (resp *SkuListResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // SkuList
