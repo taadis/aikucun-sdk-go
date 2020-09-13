@@ -4,6 +4,13 @@ import (
 	"testing"
 )
 
+//
+func TestOrderListAllResponseString(t *testing.T) {
+	resp := &OrderListAllResponse{}
+	s := resp.String()
+	t.Log(s)
+}
+
 // TestOrderListAll
 func TestOrderListAll(t *testing.T) {
 	parseArgs(t)

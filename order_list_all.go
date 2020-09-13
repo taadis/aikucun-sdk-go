@@ -1,6 +1,8 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
@@ -15,6 +17,7 @@ type OrderListAllRequest struct {
 // OrderListAllResponse
 type OrderListAllResponse struct {
 	BaseResponse
+	// ...
 }
 
 // Method
@@ -41,6 +44,16 @@ func (req *OrderListAllRequest) Params() map[string]interface{} {
 // NewOrderListAllRequest
 func NewOrderListAllRequest() *OrderListAllRequest {
 	return new(OrderListAllRequest)
+}
+
+// String
+func (resp *OrderListAllResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // OrderListAll
