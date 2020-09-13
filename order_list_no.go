@@ -1,6 +1,8 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
@@ -63,6 +65,16 @@ func (req *OrderListNoRequest) Params() map[string]interface{} {
 // NewOrderListNoRequest
 func NewOrderListNoRequest() *OrderListNoRequest {
 	return new(OrderListNoRequest)
+}
+
+// String
+func (resp *OrderListNoResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // OrderListNo
