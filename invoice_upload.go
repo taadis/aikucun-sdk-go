@@ -1,6 +1,8 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
@@ -57,6 +59,16 @@ func (req *InvoiceUploadRequest) Params() map[string]interface{} {
 // NewInvoiceUploadRequest
 func NewInvoiceUploadRequest() *InvoiceUploadRequest {
 	return &InvoiceUploadRequest{}
+}
+
+// String
+func (resp *InvoiceUploadResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // InvoiceUpload

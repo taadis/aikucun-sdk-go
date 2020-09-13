@@ -4,6 +4,13 @@ import (
 	"testing"
 )
 
+//
+func TestInvoiceUploadResponseString(t *testing.T) {
+	resp := &InvoiceUploadResponse{}
+	s := resp.String()
+	t.Log(s)
+}
+
 // TestInvoiceUpload
 func TestInvoiceUpload(t *testing.T) {
 	parseArgs(t)
