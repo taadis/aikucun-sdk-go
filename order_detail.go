@@ -1,6 +1,8 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
@@ -96,6 +98,16 @@ type OrderDetailProduct struct {
 // NewOrderDetailRequest
 func NewOrderDetailRequest() *OrderDetailRequest {
 	return new(OrderDetailRequest)
+}
+
+// String
+func (resp *OrderDetailResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // OrderDetail
