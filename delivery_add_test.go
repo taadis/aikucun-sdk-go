@@ -4,6 +4,13 @@ import (
 	"testing"
 )
 
+//
+func TestDeliveryAddResponseString(t *testing.T) {
+	resp := &DeliveryAddResponse{}
+	s := resp.String()
+	t.Log(s)
+}
+
 // TestDeliveryAdd
 func TestDeliveryAdd(t *testing.T) {
 	parseArgs(t)

@@ -1,6 +1,9 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
+
 	//"encoding/json"
 	"net/http"
 )
@@ -66,6 +69,16 @@ func (req *DeliveryAddRequest) Params() map[string]interface{} {
 // NewDeliveryAddRequest
 func NewDeliveryAddRequest() *DeliveryAddRequest {
 	return new(DeliveryAddRequest)
+}
+
+// String
+func (resp *DeliveryAddResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // DelievryAdd
