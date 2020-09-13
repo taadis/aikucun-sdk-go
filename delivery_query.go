@@ -1,6 +1,8 @@
 package aikucun
 
 import (
+	"bytes"
+	"encoding/json"
 	"net/http"
 )
 
@@ -66,6 +68,16 @@ func (req *DeliveryQueryRequest) Params() map[string]interface{} {
 // NewDeliveryQueryRequest
 func NewDeliveryQueryRequest() *DeliveryQueryRequest {
 	return new(DeliveryQueryRequest)
+}
+
+// String
+func (resp *DeliveryQueryResponse) String() string {
+	buf := bytes.NewBuffer(nil)
+	err := json.NewEncoder(buf).Encode(resp)
+	if err != nil {
+		panic(err)
+	}
+	return buf.String()
 }
 
 // DeliveryQuery
